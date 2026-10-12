@@ -1,0 +1,58 @@
+name: Build and release Windows portable app
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download and verify Mihomo v1.19.32
+        shell: pwsh
+        run: |
+          $version = "1.19.32"
+          $asset = "mihomo-windows-amd64-v1-v$version.zip"
+          $url = "https://github.com/MetaCubeX/mihomo/releases/download/v$version/$asset"
+          $archive = Join-Path $env:RUNNER_TEMP $asset
+          Invoke-WebRequest -Uri $url -OutFile $archive
+
+          $expectedSha256 = "00549b347d8e124600e46cac67d59293358454f465e9d86d2511567da56b7029"
+          $actualSha256 = (Get-FileHash -Path $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actualSha256 -ne $expectedSha256) {
+            throw "Mihomo archive SHA-256 mismatch: expected $expectedSha256, got $actualSha256"
+          }
+
+          $extractDir = Join-Path $env:RUNNER_TEMP "mihomo-$version"
+          Expand-Archive -Path $archive -DestinationPath $extractDir -Force
+          $binary = Join-Path $extractDir "mihomo-windows-amd64-v1.exe"
+          if (-not (Test-Path -Path $binary -PathType Leaf)) {
+            throw "mihomo-windows-amd64-v1.exe was not found in the official release archive."
+          }
+          New-Item -ItemType Directory -Path "vendor" -Force | Out-Null
+          Copy-Item -Path $binary -Destination "vendor/mihomo.exe" -Force
+
+      - name: Build Windows x64 portable executable
+        run: npm run pack:win
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: dist/Muse-AI-Browser-*-portable.exe
