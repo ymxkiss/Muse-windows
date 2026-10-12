@@ -1,0 +1,62 @@
+{
+  "name": "muse-ai-browser",
+  "version": "1.0.0",
+  "description": "Muse AI Browser with persistent local profile and subscription manager",
+  "main": "src/main.js",
+  "author": "x.yu",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "pack:win": "electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "^44.7.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.xy.museaibrowser",
+    "productName": "Muse AI Browser",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "extraResources": [
+      {
+        "from": "vendor/mihomo.exe",
+        "to": "mihomo.exe"
+      },
+      {
+        "from": "vendor/mihomo-source-v1.19.32.zip",
+        "to": "mihomo-source-v1.19.32.zip"
+      },
+      {
+        "from": "vendor/Mihomo-LICENSE.txt",
+        "to": "mihomo-LICENSE.txt"
+      }
+    ],
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json",
+      "README.md"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/app.ico",
+      "artifactName": "Muse-AI-Browser-${version}-portable.${ext}"
+    },
+    "portable": {
+      "artifactName": "Muse-AI-Browser-${version}-portable.${ext}"
+    }
+  },
+  "dependencies": {
+    "js-yaml": "^4.3.2"
+  }
+}

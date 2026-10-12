@@ -1,0 +1,16 @@
+# Local runtime data and generated Windows builds
+MuseBrowserData/
+node_modules/
+dist/
+# Mihomo binary is fetched by GitHub Actions during release builds
+vendor/mihomo.exe
+
+# Local secrets and transient files
+.env
+.env.*
+!.env.example
+*.log
+
+# OS/editor files
+.DS_Store
+Thumbs.db
