@@ -1,0 +1,121 @@
+* { box-sizing: border-box; }
+:root {
+  color-scheme: light;
+  font-family: Inter, "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  color: #172033;
+  background: #f3f5f8;
+  font-synthesis: none;
+}
+body { margin: 0; width: 100vw; height: 100vh; overflow: hidden; background: #f3f5f8; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+.chrome {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 104px;
+  background: #fff;
+  border-bottom: 1px solid #dfe4ec;
+  box-shadow: 0 2px 7px rgba(25, 40, 70, .05);
+}
+.chrome.navigation-hidden { height: 52px; }
+.brand-row { height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px 0 20px; -webkit-app-region: drag; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -.2px; }
+.brand img { width: 28px; height: 28px; object-fit: contain; border-radius: 7px; }
+.top-actions { display: flex; align-items: center; gap: 8px; -webkit-app-region: no-drag; }
+.quiet-button, .icon-button, .nav-button, .go-button, .primary-button, .small-button {
+  border: 1px solid #dce2eb;
+  background: #fff;
+  color: #26324a;
+  border-radius: 8px;
+  transition: background-color .12s ease, border-color .12s ease;
+}
+.quiet-button { height: 34px; padding: 0 13px; font-size: 13px; }
+.quiet-button:hover, .icon-button:hover, .nav-button:hover, .small-button:hover { background: #f0f4fa; border-color: #c6d0df; }
+.icon-button { width: 34px; height: 34px; font-size: 18px; display: grid; place-items: center; }
+.navigation-row { height: 52px; display: flex; align-items: center; gap: 7px; padding: 0 15px; margin: 0; }
+.navigation-row[hidden] { display: none; }
+.nav-button { flex: 0 0 32px; height: 32px; padding: 0; font-size: 22px; line-height: 1; color: #34425c; }
+.stop-button:disabled { cursor: default; opacity: .4; }
+.stop-button:not(:disabled) { color: #ad4545; border-color: #f0d0d0; background: #fff5f5; }
+.home-button { font-size: 20px; }
+.address-wrap { height: 36px; min-width: 160px; flex: 1; display: flex; align-items: center; gap: 8px; padding: 0 6px 0 12px; border: 1px solid #dce2eb; border-radius: 10px; background: #f7f9fc; }
+.address-wrap:focus-within { border-color: #7ea7ed; background: #fff; box-shadow: 0 0 0 3px rgba(78, 132, 220, .12); }
+.secure-mark { color: #37a479; font-size: 10px; }
+#addressInput { border: 0; outline: 0; min-width: 0; flex: 1; color: #23314a; background: transparent; font-size: 13px; }
+.go-button { height: 26px; padding: 0 10px; font-size: 12px; background: #eef3fb; border-color: transparent; }
+.go-button:hover { background: #e1ebfb; }
+.proxy-select-wrap { display: flex; flex: 0 0 auto; flex-direction: row; align-items: center; gap: 6px; height: 36px; padding: 0 9px; border: 1px solid #dce2eb; border-radius: 10px; background: #fff; color: #59677c; }
+.proxy-select-wrap span { font-size: 11px; white-space: nowrap; }
+#proxySelect { width: 178px; max-width: 22vw; min-width: 108px; height: 28px; border: 0; outline: 0; background: transparent; color: #26324a; font-size: 11px; }
+.proxy-health { flex: 0 0 auto; min-width: 76px; height: 30px; padding: 0 9px; border: 1px solid #dce2eb; border-radius: 9px; background: #f5f7fa; color: #69778d; font-size: 11px; white-space: nowrap; }
+.proxy-health:not(:disabled) { cursor: pointer; }
+.proxy-health:not(:disabled):hover { filter: brightness(.97); }
+.proxy-health.direct { border-color: #dce2eb; background: #f5f7fa; color: #69778d; }
+.proxy-health.checking { border-color: #eadfbf; background: #fffaf0; color: #92733b; }
+.proxy-health.healthy { border-color: #cce5d4; background: #eff9f2; color: #287445; }
+.proxy-health.unhealthy { border-color: #f0d0d0; background: #fff3f3; color: #ad4545; }
+.connection-status { min-width: 72px; text-align: right; color: #758197; font-size: 11px; white-space: nowrap; }
+.window-controls { display: flex; flex: 0 0 auto; align-items: center; gap: 2px; margin-left: 4px; padding-left: 8px; border-left: 1px solid #edf0f4; }
+.window-control { display: grid; width: 32px; height: 30px; place-items: center; border: 1px solid transparent; border-radius: 7px; background: transparent; color: #536078; font: 18px/1 "Segoe UI", sans-serif; }
+.window-control:hover { border-color: #e2e6ed; background: #f1f4f8; }
+.window-control.close-window:hover { border-color: #d95050; background: #d95050; color: #fff; }
+.window-control:focus-visible, .proxy-health:focus-visible { outline: 2px solid #7ea7ed; outline-offset: 1px; }
+.overlay { position: fixed; z-index: 10; inset: 0; display: flex; align-items: center; justify-content: center; padding: 22px; background: rgba(19, 27, 41, .48); }
+.overlay[hidden] { display: none; }
+.manager-card { position: relative; display: flex; flex-direction: column; width: min(920px, 100%); max-height: min(780px, 94vh); min-height: 520px; padding: 24px 28px 22px; overflow: hidden; border: 1px solid rgba(255,255,255,.7); border-radius: 18px; background: #fff; box-shadow: 0 22px 75px rgba(13, 23, 42, .24); }
+.manager-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.eyebrow { margin: 0 0 4px; color: #76849a; font-size: 11px; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
+h1 { margin: 0; font-size: 22px; letter-spacing: -.4px; }
+.close-button { color: #67748a; font-size: 23px; }
+.tabs { display: flex; gap: 7px; margin-bottom: 15px; border-bottom: 1px solid #e8ecf2; }
+.tab { border: 0; border-bottom: 2px solid transparent; padding: 0 13px 10px; background: transparent; color: #728097; font-size: 13px; }
+.tab.active { border-bottom-color: #3c7be0; color: #2464c3; font-weight: 650; }
+.tab-content { min-height: 0; flex: 1; overflow: auto; padding: 1px 2px 6px; }
+.tab-content[hidden] { display: none; }
+.hint { margin: 0 0 14px; max-width: 760px; color: #6d7b91; font-size: 12px; line-height: 1.6; }
+.subscription-form { display: grid; grid-template-columns: 180px minmax(0, 1fr) auto; align-items: end; gap: 10px; padding: 14px; border: 1px solid #e4e9f0; border-radius: 12px; background: #f8fafd; }
+label { display: flex; flex-direction: column; gap: 6px; color: #59677c; font-size: 11px; font-weight: 650; }
+label input, label textarea { width: 100%; padding: 9px 10px; border: 1px solid #dce3ed; border-radius: 8px; outline: none; background: white; color: #202c40; font-size: 12px; font-weight: 400; }
+label input:focus, label textarea:focus { border-color: #7ea7ed; box-shadow: 0 0 0 3px rgba(78, 132, 220, .11); }
+.form-actions { display: flex; align-items: center; gap: 7px; }
+.primary-button { min-height: 34px; padding: 0 14px; border-color: #2f70d2; background: #3479df; color: white; font-size: 12px; font-weight: 650; white-space: nowrap; }
+.primary-button:hover { background: #2868c6; }
+.primary-button:disabled, .small-button:disabled { cursor: wait; opacity: .58; }
+.list-heading { display: flex; justify-content: space-between; align-items: center; margin: 18px 2px 8px; color: #36445b; font-size: 12px; }
+.list-heading span { color: #8a96a8; font-weight: 400; }
+.subscription-list { display: flex; flex-direction: column; gap: 8px; }
+.subscription-card { display: flex; align-items: center; gap: 16px; padding: 12px 13px; border: 1px solid #e6eaf0; border-radius: 11px; background: #fff; }
+.subscription-info { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 4px; }
+.subscription-name { color: #26334a; font-size: 12px; }
+.subscription-url { overflow: hidden; color: #69778d; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.subscription-meta { color: #8995a7; font-size: 10px; }
+.subscription-actions { display: flex; flex: 0 0 auto; gap: 5px; }
+.small-button { min-height: 29px; padding: 0 9px; color: #506078; font-size: 11px; }
+.update-button { color: #2468c8; border-color: #d6e3f7; background: #f3f7fd; }
+.danger-button { color: #b64c4c; }
+.empty-state { padding: 36px 14px; border: 1px dashed #dce3ec; border-radius: 10px; color: #8692a4; text-align: center; font-size: 12px; }
+.settings-form { display: flex; flex-direction: column; gap: 12px; max-width: 700px; }
+.settings-form textarea { resize: vertical; min-height: 86px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; line-height: 1.5; }
+.settings-form .primary-button { align-self: flex-start; }
+.data-location { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; padding: 14px; border: 1px solid #e6eaf0; border-radius: 11px; }
+.data-location strong { font-size: 12px; }
+.data-location p { max-width: 630px; overflow-wrap: anywhere; margin: 5px 0 0; color: #77849a; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; }
+.fine-print { margin: 13px 1px 0; color: #8490a2; font-size: 11px; line-height: 1.6; }
+code { color: #53647f; }
+.toast { position: absolute; right: 24px; bottom: 18px; max-width: calc(100% - 48px); padding: 9px 13px; border: 1px solid #d4e6da; border-radius: 8px; background: #f0faf3; color: #34744b; font-size: 11px; opacity: 0; pointer-events: none; }
+.toast.visible { opacity: 1; }
+.toast.error { border-color: #f0d4d4; background: #fff5f5; color: #ad4545; }
+@media (max-width: 760px) {
+  .connection-status { display: none; }
+  .proxy-select-wrap { gap: 3px; padding: 0 6px; }
+  .proxy-select-wrap span { display: none; }
+  #proxySelect { width: 145px; max-width: 23vw; min-width: 90px; }
+  .window-controls { gap: 0; margin-left: 0; padding-left: 4px; }
+  .window-control { width: 29px; }
+  .subscription-form { grid-template-columns: 1fr; }
+  .form-actions { justify-content: flex-start; }
+  .manager-card { min-height: 0; max-height: 96vh; padding: 20px; }
+  .subscription-card { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .subscription-actions { flex-wrap: wrap; }
+}
