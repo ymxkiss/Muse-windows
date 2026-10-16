@@ -28,7 +28,7 @@ const CORE_DATA_DIR = path.join(DATA_DIR, 'mihomo');
 const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
 const SUBSCRIPTIONS_FILE = path.join(DATA_DIR, 'subscriptions.json');
 const START_URL = 'http://muse.ai';
-const INITIAL_URL = 'about:blank';
+const INITIAL_URL = START_URL;
 const MAX_SUBSCRIPTION_BYTES = 25 * 1024 * 1024;
 const DEFAULT_USER_AGENT = `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${process.versions.chrome} Safari/537.36`;
 
